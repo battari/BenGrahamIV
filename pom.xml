@@ -51,11 +51,28 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <!--
                     <mainClass>au.com.attari.bengrahamiv.BenGrahamIV</mainClass>
-                    <commandlineArgs>AAPL NASDAQ 5.11  17.93</commandlineArgs>
-                    <commandlineArgs>ANZ ASX 2.31 16</commandlineArgs>
-                    <commandlineArgs>CSL ASX 7.36 23</commandlineArgs>
-                    <commandlineArgs>LOV ASX 0.55 27</commandlineArgs>
+
+                    <commandlineArgs>ANZ ASX 2.31 16 25.78</commandlineArgs>
+                    <commandlineArgs>AAPL NASDAQ 5.11  17.93 195.83</commandlineArgs>
+                    <commandlineArgs>AKE ASX 0.85 28.88 15.70</commandlineArgs>
+                    <commandlineArgs>BRG ASX 0.75 8.00 22.72</commandlineArgs>
+                    <commandlineArgs>EBO ASX 1.41 0.00 35.12</commandlineArgs>
+                    <commandlineArgs>AUB ASX 0.45 11 27.12</commandlineArgs>
+                    <commandlineArgs>NHC ASX 1.23 35.50 5.22</commandlineArgs>
+                    <commandlineArgs>CSL ASX 6.64 22 262.90</commandlineArgs>
+                    <commandlineArgs>RMD ASX 0.74 18.5 27.2</commandlineArgs>
+                    <commandlineArgs>AVGO NASDAQ 38.11 9.6 850</commandlineArgs>
+                    <commandlineArgs>TSMC NASDAQ 38.11 9.6 850</commandlineArgs>
+                    <commandlineArgs>QCOM NASDAQ 7.55 9.8 110</commandlineArgs>
+
+                    <commandlineArgs>LOV ASX 0.76 23.64 20.13</commandlineArgs>
+                    <commandlineArgs>WDS ASX 3.00 20.70 37.99</commandlineArgs>
+                    -->
+                    <mainClass>au.com.attari.bengrahamiv.BenGrahamCSVIV</mainClass>
+                    <commandlineArgs>D:\ivcweb\path\bengraham\testing-asx-202309.txt</commandlineArgs>
+
                 </configuration>
             </plugin>
         </plugins>

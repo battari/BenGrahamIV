@@ -22,13 +22,12 @@ public class BenGrahamIV {
 
     private static String pattern = "[0-9]*\\.?[0-9][0-9]";
 
-
-
+    private BigDecimal currentPrice;
 
     public static void main(String[] args) {
 
-        if(args.length != 4) {
-            System.out.println("usage: java BenGrahamIV <Company Code> <exchange> <Earning Per Share> <growth rate>");
+        if(args.length != 5) {
+            System.out.println("usage: java BenGrahamIV <Company Code> <exchange> <Earning Per Share> <growth rate> <current price>");
             System.exit(-1);
         }
 
@@ -44,10 +43,13 @@ public class BenGrahamIV {
         // Classical
         bGIV.setEarningPerShare(new BigDecimal(args[2]));
         bGIV.setGrowthRate(new BigDecimal(args[3]));
+        bGIV.setCurrentPrice(new BigDecimal(args[4]));
         BigDecimal iv = bGIV.calculateBenGrahamIV();
         BigDecimal ivMS = iv.multiply(BenGrahamClassicalParams.MARGIN_OF_SAFETY).setScale(2, RoundingMode.HALF_UP);
-        System.out.println(String.format("Classical Intrinsic Value for %s.%s is %s and buy price with margin of safety is %s",
-                bGIV.getCompanyCode(), bGIV.getExchange(), iv, ivMS));
+        System.out.println("ivMS: " + ivMS + " curent: " + bGIV.getCurrentPrice());
+        Boolean buyable = ivMS.compareTo(bGIV.getCurrentPrice()) > 0;
+        System.out.println(String.format("Classical Intrinsic Value for %s.%s is %s. Buy price with margin of safety is %s. Is it buyable? %s",
+                bGIV.getCompanyCode(), bGIV.getExchange(), iv, ivMS, buyable));
 
         // Modern
         bGIV.setGrowthRateMultiplier(BenGrahamClassicalParams.GROWTH_RATE_MULTIPLIER);
@@ -57,13 +59,15 @@ public class BenGrahamIV {
         bGIV.setGrowthRate(new BigDecimal(args[3]));
         iv = bGIV.calculateBenGrahamIV();
         ivMS = iv.multiply(BenGrahamModernParams.MARGIN_OF_SAFETY).setScale(2, RoundingMode.HALF_UP);
-        System.out.println(String.format("Modern Intrinsic Value for %s.%s is %s  and buy price with margin of safety is %s",
-                bGIV.getCompanyCode(), bGIV.getExchange(), iv, ivMS));
+        System.out.println("ivMS: " + ivMS + " curent: " + bGIV.getCurrentPrice());
+        buyable = ivMS.compareTo(bGIV.getCurrentPrice()) > 0;
+        System.out.println(String.format("Modern Intrinsic Value for %s.%s is %s. Buy price with margin of safety is %s. Is it buyable? %s",
+                bGIV.getCompanyCode(), bGIV.getExchange(), iv, ivMS, buyable));
 
         System.exit(0);
     }
 
-    private BigDecimal calculateBenGrahamIV() {
+    BigDecimal calculateBenGrahamIV() {
 
         BigDecimal gR = getGrowthRateMultiplier().multiply(getGrowthRate());
         BigDecimal pR = gR.add(getPriceEarningBase());
@@ -143,5 +147,13 @@ public class BenGrahamIV {
 
     public static void setPattern(String pattern) {
         BenGrahamIV.pattern = pattern;
+    }
+
+    public BigDecimal getCurrentPrice() {
+        return currentPrice;
+    }
+
+    public void setCurrentPrice(BigDecimal currentPrice) {
+        this.currentPrice = currentPrice;
     }
 }
